@@ -1,0 +1,69 @@
+@startuml
+skin rose
+class Robot {
+    - numeroSerie: String
+    - parteCabeza: Material
+    - parteCuerpo: Material
+    - parteBrazos: Material
+    - partePiernas: Material
+
+    + Robot(numeroSerie: String, parteCabeza: Material,
+    parteCuerpo: Material, parteBrazos: Material, partePiernas: Material)
+    + getNumeroSerie(): String
+    + getParteCabeza(): Material
+    + getParteCuerpo(): Material
+    + getParteBrazos(): Material
+    + getPartePiernas(): Material
+    + setParteCabeza(parteCabeza: Material): void
+    + setParteCuerpo(parteCuerpo: Material): void
+    + setParteBrazos(parteBrazos: Material): void
+    + setPartePiernas(partePiernas: Material): void
+}
+enum Material {
+    METAL_COMUN
+    ACERO
+    GRAFENO
+    VIBRANIUM
+
+    - defensa: int
+    - puntosDeVida: int
+    - danioDeAtaque: int
+
+    + Material(defensa:int,puntosDeVida:int,danioDeAtaque:int)
+    + getDefensa(): int
+    + getPuntosDeVida(): int
+    + getDanioDeAtaque(): int
+
+
+}
+Robot ..|> Material
+
+interface Fabrica {
+    + crearRobot(cabeza:String,cuerpo:String,
+    brazos:String,piernas:String): boolean
+    + editarRobot(numeroSerie: String,cabeza:String,
+    cuerpo:String, brazos:String,piernas:String): boolean
+    + mostrarRobots(): List<String>
+    + destruirTodo(): void
+}
+
+class FabricaImpl implements Fabrica {
+    - robots: List<Robot>
+    - {static}instancia: FabricaImpl
+
+    - FabricaImpl()
+    - generarIdAleatorio(): String
+
+}
+FabricaImpl --o Robot
+class MenuSistema{
+
+
+
+}
+MenuSistema ..> Fabrica: Usa
+
+
+
+
+@enduml
